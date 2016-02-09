@@ -157,21 +157,15 @@ class LustreSource(object):
 
             if OLDEST_DATE and srcstat.st_atime + OLDEST_DATE \
                 < int(time.time()):
-                if stat.S_ISLNK(mode): # check the mtime of file which symlink points to. If new, copy symlink
-                    linkstat = self.safestat(src, follow_symlink=True)
-                    if(linkstat.st_atime + OLDEST_DATE) \
-                        < int(time.time()):
-                        return
+                if not stat.S_ISLNK(mode): # copy all symlinks
+                    return
                 else:
                     return
 
             if NEWEST_DATE and srcstat.st_mtime + NEWEST_DATE \
                 > int(time.time()):
-                if stat.S_ISLNK(mode): # check the mtime of file which symlink points to. If new, copy symlink
-                    linkstat = self.safestat(src, follow_symlink=True)
-                    if(linkstat.st_mtime + NEWEST_DATE) \
-                        > int(time.time()):
-                        return
+                if not stat.S_ISLNK(mode): # copy all symlinks
+                    return
                 else:
                     return
 
