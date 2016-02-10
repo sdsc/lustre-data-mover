@@ -28,7 +28,7 @@ if __name__ == "__main__":
     if(str(sys.argv[1]) == "start"):
         app.send_task('cmover_dirtime.procDir', args=["%s"%source_mount], kwargs={})
     elif(str(sys.argv[1]) == "stop"):
-        app.control.broadcast('shutdown', destination=[])
+        app.control.broadcast('shutdown')
 
     else:
         print "Wrong argument"
