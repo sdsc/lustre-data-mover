@@ -31,26 +31,33 @@ The rabbitmq/rabbitmq_data_move.conf file should have the data_move user passwor
 
 Most data migration settings can be set in config.py file:
 
-`USERNAME = 'data_move'`
+```USERNAME = 'data_move'```
+
 used as rabbitmq virtual hostname and rabbitmq username. The passord for the user should be in rabbitmq/rabbitmq_<username>.conf file
 
-OLDEST_DATE = 90 * 24 * 60 * 60
+```OLDEST_DATE = 90 * 24 * 60 * 60```
+
 filter files by atime. Files older than OLDEST_DATE won't be copied. To disable set to 0.
 
-NEWEST_DATE =  0 #24 * 60 * 60
+```NEWEST_DATE =  0 #24 * 60 * 60```
+
 filter files by mtime. Files newer than NEWEST_DATE won't be copied. To disable set to 0.
 Useful for initial pass: the files with recent mtime are likely to be changed by a user during the migration. Should be set to 0 for the final pass.
 
-STATS_ENABLED = True
+```STATS_ENABLED = True```
+
 Enable statistics to memcached
 
-REPORT_INTERVAL = 30 # seconds
+```REPORT_INTERVAL = 30 # seconds```
+
 Minimal time interval between stats reports
 
-source_mount = "/mnt/source"
+```source_mount = "/mnt/source"```
+
 Source filesystem mount point
 
-target_mount = "/mnt/target"
+```target_mount = "/mnt/target"```
+
 Target filesystem mount point
 
 #Running:
@@ -61,34 +68,34 @@ By default scripts run 8 file and 8 dir celery workers, which connect to RabbitM
 
 Once all workers have been started, an initial message should be added to the queue containing the root location of source filesystem. To start files copy run:
 
-    `python cmover_control.py start`
+```python cmover_control.py start```
 
 To start files delete pass:
 
-    `python cmover_control_del.py start`
+```python cmover_control_del.py start```
 
 To start folders mtime fix pass:
 
-    `python cmover_control_dirtime.py start`
+```python cmover_control_dirtime.py start```
 
 To stop operation and shutdown all the workers, run:
 
-    `python cmover_control.py stop`
+```python cmover_control.py stop```
 
 This will stop all the workers in virtual host. To send the command to a specific node, modify the cmover_control<_*>.py file and add destination parameter, f.e.:
 
-    `app.control.broadcast('shutdown', destination=["celery@file_node02", "celery@dir_node02"])`
+```app.control.broadcast('shutdown', destination=["celery@file_node02", "celery@dir_node02"])```
 
 The workers pool on all nodes can be extended by n workers with command:
 
-    `celery control -A cmover_control pool_grow n`
+```celery control -A cmover_control pool_grow n```
 
 or on a single node:
-    `celery control -A cmover_control -d "celery@file_<hostname>" pool_grow n `
+```celery control -A cmover_control -d "celery@file_<hostname>" pool_grow n ```
 
 To get the list of current tasks for all nodes:
 
-    `celery inspect active -A cmover_control`
+```celery inspect active -A cmover_control```
 
 #Monitoring:
 
