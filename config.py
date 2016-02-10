@@ -14,6 +14,9 @@ NEWEST_DATE =  0 #24 * 60 * 60
 # Minimal time between reports to memcached
 REPORT_INTERVAL = 30 # seconds
 
+# Send stats to memcached
+STATS_ENABLED = True
+
 # Copy from
 source_mount = "/seahorse/dmishin/source"
 

@@ -152,6 +152,8 @@ def isProperDirection(path):
 
 
 def report_files_progress(copied_files):
+    if(not STATS_ENABLED):
+        return
     mc = get_mc_conn()
     if(copied_files):
         if(not mc.incr("%s.files"%get_worker_name(), "%s"%copied_files)):
@@ -185,10 +187,11 @@ def procDir(dir):
     isProperDirection(dir.rstrip())
     dataPlugin.procDir(dir)
 
-    mc = get_mc_conn()
-    if(not mc.incr("%s.dirs"%get_worker_name()) ):
-        mc.set("%s.dirs"%get_worker_name(), "1")
-    mc.disconnect_all()
+    if(STATS_ENABLED):
+        mc = get_mc_conn()
+        if(not mc.incr("%s.dirs"%get_worker_name()) ):
+            mc.set("%s.dirs"%get_worker_name(), "1")
+        mc.disconnect_all()
 
 @app.task(ignore_result=True)
 def procFiles(files):

@@ -21,7 +21,7 @@ On the first run during the first-level folders creation on target filesystem th
 * Celery python package
 * Memcached server
 * Lustre filesystems mounted on all mover nodes
-* Graphite server for monitoring the progress
+* Graphite server for statistics collection
 
 #Configuring:
 
@@ -40,6 +40,9 @@ filter files by atime. Files older than OLDEST_DATE won't be copied. To disable 
 NEWEST_DATE =  0 #24 * 60 * 60
 filter files by mtime. Files newer than NEWEST_DATE won't be copied. To disable set to 0.
 Useful for initial pass: the files with recent mtime are likely to be changed by a user during the migration. Should be set to 0 for the final pass.
+
+STATS_ENABLED = True
+Enable statistics to memcached
 
 REPORT_INTERVAL = 30 # seconds
 Minimal time interval between stats reports
@@ -86,4 +89,8 @@ or on a single node:
 To get the list of current tasks for all nodes:
 
     `celery inspect active -A cmover_control`
+
+#Monitoring:
+
+The statistics of data moving process can be collected by a graphite server. The send_graphite.py script collects known fields from memcached service and sends these to graphite. The script can be run periodically with a crontab task at the frequency defined in graphite for the collection.
 

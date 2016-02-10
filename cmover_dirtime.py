@@ -141,10 +141,11 @@ def procDir(dir):
     if(not dir.startswith( tuple(exceptions) )):
         dataPlugin.procDir(dir)
 
-    mc = get_mc_conn()
-    if(not mc.incr("%s.dirs"%get_worker_name()) ):
-        mc.set("%s.dirs"%get_worker_name(), "1")
-    mc.disconnect_all()
+    if(STATS_ENABLED):
+        mc = get_mc_conn()
+        if(not mc.incr("%s.dirs"%get_worker_name()) ):
+            mc.set("%s.dirs"%get_worker_name(), "1")
+        mc.disconnect_all()
 
 from cmover_dirtime import procDir
 
