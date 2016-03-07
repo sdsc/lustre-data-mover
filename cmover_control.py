@@ -5,15 +5,17 @@ import settings
 
 from celery import Celery
 from celery.decorators import periodic_task
-import sys
+import sys, os.path
 from celery.task.control import revoke
 
 from config import *
 
-with open('rabbitmq/rabbitmq.conf','r') as f:
+cur_dir = os.path.dirname(os.path.realpath(__file__))
+
+with open('%s/rabbitmq/rabbitmq.conf'%cur_dir,'r') as f:
     rabbitmq_server = f.read().rstrip()
 
-with open('rabbitmq/rabbitmq_%s.conf'%USERNAME,'r') as f:
+with open('%s/rabbitmq/rabbitmq_%s.conf'%(cur_dir, USERNAME),'r') as f:
     rabbitmq_password = f.read().rstrip()
 
 app = Celery(USERNAME, broker='amqp://%s:%s@%s/%s'%(USERNAME, rabbitmq_password, rabbitmq_server, USERNAME))

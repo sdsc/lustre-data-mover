@@ -129,7 +129,7 @@ class LustreSource(object):
 
         if not exists(destdir):
             level = len(filter(None, destdir.replace(target_mount,'').split("/")))
-            if(level > 1):
+            if( (not MDS_IS_STRIPED) or (level > 1) ):
                 os.mkdir(destdir)
             else:
                 subprocess.Popen(['lfs setdirstripe -i %s %s'%(mds_num, destdir)], 
