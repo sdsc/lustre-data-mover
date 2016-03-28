@@ -22,6 +22,8 @@ On the first run during the first-level folders creation on target filesystem th
 * Memcached server
 * Lustre filesystems mounted on all mover nodes
 * Graphite server for statistics collection
+* cloghandler python package
+* put lustreapi.py from pcp project ( https://github.com/wtsi-ssg/pcp/blob/master/pcplib/lustreapi.py ) and its required liblustreapi.so module into "lustre" folder
 
 #Configuring:
 

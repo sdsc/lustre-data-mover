@@ -9,7 +9,7 @@ OLDEST_DATE = 0 #90 * 24 * 60 * 60
 
 # filter files by mtime. Files newer than NEWEST_DATE won't be copied. To disable set to 0.
 # Useful for initial passes: the files with recent mtime are likely to change soon. Should be set to 0 for end pass.
-NEWEST_DATE =  60*60 #24 * 60 * 60
+NEWEST_DATE =  12*60*60 #24 * 60 * 60
 
 # Minimal time between reports to memcached
 REPORT_INTERVAL = 30 # seconds
@@ -21,7 +21,8 @@ STATS_ENABLED = True
 MDS_IS_STRIPED = False
 
 # Copy from
-source_mount = "/seahorse/dmishin/source"
+source_mount = "/panda"
 
 # Copy to
-target_mount = "/seahorse/dmishin/target"
+target_mount = "/badger"
+
