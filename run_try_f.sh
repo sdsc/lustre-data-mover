@@ -1,7 +1,5 @@
 #!/bin/bash
 
-module load python
-
 DIRNAME=`dirname $0`
 pushd $DIRNAME > /dev/null 2>&1 
 
