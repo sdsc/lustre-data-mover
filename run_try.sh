@@ -1,8 +1,5 @@
 #!/bin/bash
 
-module load python
-#source /home/dmishin/datamove/bin/activate
-
 DIRNAME=`dirname $0`
 pushd $DIRNAME > /dev/null 2>&1 
 
