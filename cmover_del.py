@@ -16,7 +16,7 @@ from config import *
 
 from cloghandler import ConcurrentRotatingFileHandler
 
-from random import normalvariate
+from random import random
 
 from os.path import relpath, exists, lexists, join, dirname, samefile, isfile, \
     islink, isdir, ismount
@@ -171,9 +171,12 @@ def safestat(filename, follow_symlink=False):
             if error.errno != 4:
                 raise
 
+def is_delete():
+    return random() <= (percent_to_delete/100.0)
+
 def checkFile(src, dst):
     try:
-        if not lexists(src):
+        if (not lexists(src)) or (percent_to_delete and is_delete()):
             os.remove(dst)
             #logger.warning("Deleting %s"%dst)
             return

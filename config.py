@@ -26,3 +26,5 @@ source_mount = "/panda"
 # Copy to
 target_mount = "/badger"
 
+# percent of random files to delete
+percent_to_delete = 0
