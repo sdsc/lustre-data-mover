@@ -64,9 +64,9 @@ Target filesystem mount point
 
 #Running:
 
-To start regular file copy celery workers on a node, run run.sh script. The run_del.sh script will run delete workers, and run_dirtime.sh runs directories mtime fix workers. Also there are debugging scripts ending with "_try" which run in foreground and display all debugging information. *_try_f.sh run the file worker and *_try.sh runs dir worker.
+To start regular file copy celery workers on a node, run run.sh script. The run_del.sh script will run delete workers, and run_dirtime.sh runs directories mtime fix workers. To run the same scripts in debug mode, use "try_f" (files worker) and "try_d" (dirs worker) parameters for run.sh and run_del.sh scripts. Those will run in foreground and display all debugging information.
 
-By default scripts run 8 file and 8 dir celery workers, which connect to RabbitMQ server and wait for a job to perform.
+By default scripts run 16 file and 16 dir celery workers, which connect to RabbitMQ server and wait for a job to perform.
 
 Once all workers have been started, an initial message should be added to the queue containing the root location of source filesystem. To start files copy run:
 
